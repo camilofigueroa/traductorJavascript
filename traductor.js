@@ -3,13 +3,13 @@
  * Este archivo contiene las principales funciones y funcionalidades del traductor.
  */
 
-var arreglo_palabras = new Array();
+var diccionario_palabras = new Array();
             
-arreglo_palabras.push( [ [ "perro" ],       [ "dog" ] ] );
-arreglo_palabras.push( [ [ "gato" ],        [ "cat" ] ] );
-arreglo_palabras.push( [ [ "loro" ],        [ "parrot" ] ] );
+diccionario_palabras.push( [ [ "perro" ],       [ "dog" ] ] );
+diccionario_palabras.push( [ [ "gato" ],        [ "cat" ] ] );
+diccionario_palabras.push( [ [ "loro" ],        [ "parrot" ] ] );
             
-console.log( arreglo_palabras );
+console.log( diccionario_palabras );
 
 
 //------------------Todo el c�digo de las funciones est� aqu�----------------------
@@ -32,14 +32,30 @@ function traducir()
     var texto = document.getElementById( "texto-entrada" ).value; //Esto solo debe hacerse una vez.
     var arreglo_palabras = texto.split( " " ); //En esta linea de código separa todas las palabras y las coloca en el vector.
     var panel_salida = document.getElementById( "contenedor-salida" );
+    var traduccion = "";
+    var palabra_temporal = "";
     
-    console.log( "El tamaño del vector o el número de palabras es " + arreglo_palabras.length );
+    //console.log( "El tamaño del vector o el número de palabras es " + arreglo_palabras.length );
     
-    for( var i = 0; i < arreglo_palabras.length; i ++ )
+    for( var i = 0; i < arreglo_palabras.length; i ++ ) //Aquí se recorre el vector que se genera de separar el texto del usuario.
     {
-        console.log( arreglo_palabras[ i ] );        
+        for( var j = 0; j < diccionario_palabras.length; j ++ ) //Aquí se recorre el vector que sirve de diccionario de palabras.
+        {
+            if( arreglo_palabras[ i ] == diccionario_palabras[ j ][ 0 ] )
+            {
+                palabra_temporal = diccionario_palabras[ j ][ 1 ];
+                break;
+                
+            }else{
+                    palabra_temporal = arreglo_palabras[ i ];        
+                }
+        }
+        
+        traduccion += " " + palabra_temporal; 
+        //console.log( arreglo_palabras[ i ] );        
     }
     
     console.log( arreglo_palabras );
+    panel_salida.innerHTML = traduccion;
 }
 
